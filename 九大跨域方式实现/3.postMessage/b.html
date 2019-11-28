@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>b页面</title>
+  <style>
+    .title{
+
+    }
+  
+  
+  </style>
+</head>
+<body>
+  <div>我是b页面</div>
+  <div class="title">我接受到消息：</div>
+  <div id="text"></div>
+  <script>
+    window.onmessage = function(e){
+      console.log(e.origin)
+      console.log(e.data)
+      e.source.postMessage('我不爱你',e.origin)
+      let text = document.getElementById('text');
+      text.innerHTML = e.data
+    }
+    
+    
+  </script>
+</body>
+</html>

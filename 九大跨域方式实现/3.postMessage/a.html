@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>a页面</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .box{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .left,.right{
+      flex: 1;
+    }
+    .left{
+      background: green;
+    }
+    .right{
+      background: grey;
+    }
+  
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="left">我是a页面
+      <div>接收消息</div>
+      <div id="message"></div>
+    </div>
+    <div class="right">
+        <iframe src="http://10.0.0.70:9000/b.html" frameborder="0" id="frame" onload="load()"></iframe>
+    </div>
+  </div>
+  
+  
+  <script>
+    function load(){
+      let frame = document.getElementById('frame');
+      let win = frame.contentWindow;
+      win.postMessage('I love you ','http://10.0.0.70:9000');
+      window.onmessage =function(e){
+        let msg = document.getElementById('message');
+        msg.innerHTML = e.data;
+      }
+
+    }
+    
+    
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>a页面</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .box{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .left,.right{
+      flex: 1;
+    }
+    .left{
+      background: green;
+    }
+    .right{
+      background: grey;
+    }
+  
+  </style>
+</head>
+<body>
+  <noscript>
+    <!-- 路径后面的hash值可以用来通信  -->
+    <!-- 目的a想访问c -->
+    <!-- a给c传一个hash值 c收到hash值后  c把hash值传递给b b将结果放到a的hash值中-->
+  </noscript>
+  <div class="box">
+    <div class="left">
+      我是a页面
+      <div>接收消息</div>
+      <div id="message"></div>
+    </div>
+    <div class="right">
+        <iframe src="http://b.baobao.com:8090/b.html"  frameborder="0" onload="load()" id="frame"></iframe>
+    </div>
+  </div>
+  
+  <script>
+    document.domain = 'baobao.com';
+    function load(){
+      console.log(iframe.contentWindow.a)
+    }
+  </script>
+</body>
+</html>
