@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>原型继承</title>
+</head>
+<body>
+  <div id="div"></div>
+  <script>
+    var div1 = document.getElementById('div')
+    // #div.__proto__ -> HTMLDivElement .prototype ->  HTMLElement .prototype -> 
+    // Element .prototype -> Node .prototype -> EventTarget .prototype -> object
+    console.log(div1.__proto__.__proto__)
+
+    function myObject(){
+
+    }
+
+    myObject.prototype = {
+      constructor: Object,
+      hasOwnProperty: function(){
+
+      }
+    }
+
+    function myEventTarget(){
+
+    }
+
+    myEventTarget.prototype = new myObject();
+    myEventTarget.prototype.addEvnetListener = function(){
+
+    }
+
+    function myNode(){
+
+    }
+
+    myNode.prototype = new myEventTarget();
+    myNode.prototype.createElement = function(){
+
+    }
+
+    var n = new myNode();
+
+    function A(){
+      this.x = 100
+    }
+    A.prototype.getX = function(){
+      console.log(this.x)
+    }
+    var a = new A;
+    // a.__proto__ === A.prototype
+    // A.prototype.constructor === A()
+    console.log(a.__proto__,A.prototype.constructor)
+    function B(){
+      this.x = 200
+      this.y = 200
+    }
+
+    B.prototype = new A;
+    B.prototype.constructor = B;
+    // 如果不添加constructor 那么B的constructor将会指向A
+    var b = new B;
+    b.getX()
+    //继承 封装 和 多态（重载 和 重写）
+    //原型继承是js继承中最常用的方式之一，
+    //子类B想要继承父类A中的所有属性和方法，之类B的prototype = new A;的实例
+    //原型继承的特点，是把父类中私有+公有属性和方法，都继承到子类的原型上，也就是子类的公有
+    //核心思想：原型链继承并不是把父类的属性和方法克隆一份给子类，而是让子类和父类之间增加了原型链的链接，以后子类的实例想要使用父类的方法，需要一级一级的向上查找来使用
+
+    //子类可以修改父类的属性和方法 通过原型链 __proto__
+  </script>
+</body>
+</html>

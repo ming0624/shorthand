@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    function a(){
+      console.log(this.name);
+    }
+    a();
+    var b = {
+      name:'apple'
+    }
+  
+    a.myBind(b)()
+    var arr=[[12,1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+    console.log(flatten(arr))
+    console.log("flatten2",flatten2(arr))
+    var arr1 =  [12, 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10];
+    console.log(arr1.Max())
+    console.log('最大值', extremeValue(arr1))
+  </script>
+</body>
+</html>

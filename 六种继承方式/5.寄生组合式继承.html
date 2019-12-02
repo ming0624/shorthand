@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>寄生组合式继承</title>
+</head>
+<body>
+  <script>
+    function A(){
+      this.x = 100
+    }
+    A.prototype.getX = function(){
+      console.log(this.x)
+    }
+
+    function B(){
+     A.call(this)
+    }
+    
+    B.prototype = objectCreate(A.prototype)//Object.create(A.prototype);
+    B.prototype.constructor = B;
+    var n = new B;
+    console.dir(n)
+    function objectCreate(o){
+      function Fn(){};
+      Fn.prototype = o;
+      return new Fn;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>检测数据类型</title>
+</head>
+<body>
+  <script>
+    // 检测数据类型的4种方法
+    // typeof 检测数据类型
+    // instanceof 检测某一个实例属于某一个类
+    // constructor 构造函数
+    // Object 对象数据类型类
+    
+    // typeof 不能检测出是数组类型
+    // instanceof 不能处理用自变量出来的值
+    var arr = function(){
+
+    }
+    var length = {};
+    console.log(arr.constructor)
+    console.log(arr.constructor === Function)
+    console.log(Object.prototype.toString.call(arr) === '[object Function]' )
+    console.log(Object.prototype.toString.call(length))
+    //回调函数
+
+    Array.prototype.myForEach = function myForEach(callback,context){
+      context = context || window;
+      if('forEach' in Array.prototype){
+        this.forEach(callback,context)
+        return
+      }
+      // 在ie6~8自己编译回调函数
+       for(var i = 0; i < this.length;i++){
+         callback && callback.call(context,this[i],i,this)
+       } 
+    }
+
+    Array.prototype.myMap = function myMap(callback,context){
+      context = context || window;
+      if('map' in Array.prototype){
+        return this.map(callback,context)
+        
+      }
+      // 在ie6~8自己编译回调函数
+      var newArr = [];
+      for(var i = 0; i < this.length;i++){
+         if(typeof callback === 'function'){
+          var val = callback && callback.call(context,this[i],i,this)
+          newArr[newArr.length] = val;
+         }
+       } 
+       return newArr;
+    }
+    var arr = [1,2,3,4,5,6]
+    arr.myForEach(function(item,index){
+      console.log(item)
+      console.log(this)
+    },arr)
+    var ary = arr.myMap(function(item,indx,arr){
+      return item *10
+    })
+    console.log(ary,arr)
+    //forEach  map 都接受第二个参数值，第二个参数的意思就是把匿名函数的this进行修改
+</script>
+</body>
+</html>

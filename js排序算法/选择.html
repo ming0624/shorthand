@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    /**选择排序
+     * 一种简单直观的算法，时间复杂度O(n2);
+     * 基本逻辑：
+     * 首先在未排序的的序列中找到最大（最小）元素，存放在排序的起始位置
+     * 在从剩余未排序的元素中找最大（最小）元素，存放在已排序的末尾
+     * 一直重复步骤2，直到排序完毕
+     * 
+    */
+    function selectionSort(arr){
+      console.time()
+      let len = arr.length;
+      var minIndex,temp;
+      for (let i = 0; i < len-1; i++) {
+        minIndex = i;
+        for (let j = i+1; j < len; j++) {
+          if(arr[j] < arr[minIndex]){
+            minIndex = j;
+          }
+        }
+        temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+      }
+      console.timeEnd()
+      return arr;
+    }
+    
+    let arr = [11,4,5,74,20,33,9,12,2,28];
+    let newArr = selectionSort(arr);//[1, 2, 4, 5, 7, 9, 12, 33]
+    // 历时 0.02 ~ 0.04ms
+    console.log(newArr)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+</body>
+</html>

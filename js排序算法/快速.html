@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    /**快速排序
+     * 它是处理大数据最快的排序算法之一，时间复杂度为O(n);
+     * 基本逻辑：
+     * 从数列中挑出一个元素 称为 “基准” （pivot)
+     * 重新排列，所有元素比基准值小的放在基准前面，所有元素比基准大的摆在基准的后面，在这个分区退出后，该基准就处在数列的中间位置，这就称为分区操作
+     * 递归把小于或者大于基准元素排序
+     * 
+     * 
+    */
+   //方法一
+    // function quickSort(arr){
+    //   if(arr.length < 1){
+    //     return arr;
+    //   }
+    //   let pivotindex = Math.floor(arr.length/2);//找到基准数下标
+    //   let pivot = arr.splice(pivotindex,1)[0];//取出基准数
+    //   var left = [],right =[];
+    //   for(let i = 0; i < arr.length; i++){
+    //     if(arr[i] < pivot){
+    //       left.push(arr[i])
+    //     }else{
+    //       right.push(arr[i])
+    //     }
+    //   }
+      
+    //   return quickSort(left).concat([pivot],quickSort(right));//合并基准数
+    // }
+
+
+    // 方法二
+    // function quickSort(arr, left, right){
+    //   var len= arr.length,partitionIndex,left = typeof left != 'number' ? 0 : left,right = typeof right != 'number' ? 0 : right;
+    //   if(left < right){
+    //     partitionIndex = partition(arr,left,right);
+    //     quickSort(arr, left, partitionIndex-1);
+    //     quickSort(arr, partitionIndex+1, right);
+    //   }
+    //   return arr;
+    // }
+    // function partition(arr, left, right){//分区操作
+    //   var pivot = left, index = pivot + 1;
+    //   for (let i = index; i < right; i++) {
+    //    if(arr[i] < arr[pivot]){
+    //     swap(arr, i, index);
+    //     index++;
+    //    }
+    //   }
+    //   swap(arr, pivot, index - 1);
+    //   return index -1;
+    // }
+    // function swap(arr, i, j) {
+    //     var temp = arr[i];
+    //     arr[i] = arr[j];
+    //     arr[j] = temp;
+
+    // }
+    console.time();
+    let arr = [11,4,5,74,20,33,9,12,2,28];
+    let newArr = quickSort(arr,3,8);//[1, 2, 4, 5, 7, 9, 12, 33]
+    console.timeEnd()
+    // 历时 0.09 ~ 0.26ms
+    console.log(newArr)
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+</body>
+</html>

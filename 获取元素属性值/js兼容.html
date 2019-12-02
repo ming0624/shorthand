@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div{
+      margin: 0;
+      padding: 0;
+    }
+    #div1{
+      width: 150px;
+      height: 200px;
+      padding: 20px;
+      border: 10px solid black;
+      margin: 50px auto;
+      font-size: 14px;
+    }
+  
+  
+  </style>
+</head>
+<body>
+  <div id="div1">六.寄生组合式继承
+      1.基本思想
+      结合寄生式继承和组合式继承，完美实现不带两份超类属性的继承方式
+      
+      2.具体实现六.寄生组合式继承
+      1.基本思想
+      结合寄生式继承和组合式继承，完美实现不带两份超类属性的继承方式
+      
+      
+  </div>
+  <script>
+    var box = document.getElementById('div1')
+    //获取元素的某一个具体的样式值
+    // 方法一 元素.style.属性名
+    //弊端： 元素的样式都要写在行内样式上，写在样式表中获取不到
+    
+    //方法二 使用 window.getComputedStyle 获取元素计算过后的样式值
+    // window.getComputedStyle(box,null) 第一个参数是元素 第二个参数是伪类 在ie6~8不兼容 可以使用 currentStyle
+    // console.log(window.getComputedStyle(box,null).width)
+    
+    //获取元素所有经过计算的样式
+    /***
+     * curEle [object] 当前要操作的元素对象
+     * attr [string] 要获取样式属性的名称
+     */
+
+
+    // try...catch 不是最优，消耗性能
+    // function getCss(curEle,attr){
+    //   var val = null;
+    //   try {
+    //     val = window.getComputedStyle(curEle,null)[attr];
+    //   } catch (e) {
+    //     val = curEle.currentStyle[attr];
+    //   }
+    //   return val;
+    // }
+
+    
+    //判断当前浏览器是否存在这个属性
+    // function getCss(curEle,attr){
+    //   var val = null;
+    //   //或者 window.getComputedStyle
+    //   // 或者 typeof window.getComputedStyle === 'function'
+    //   if('getComputedStyle' in window){
+    //     val = window.getComputedStyle(curEle,null)[attr];
+    //   }else{
+    //     val = curEle.currentStyle[attr];
+    //   }
+    //   return val;
+    // }
+
+    //通过检测浏览器版本
+    function getCss(curEle,attr){
+      var val = null;
+      //或者 window.getComputedStyle
+      // 或者 typeof window.getComputedStyle === 'function'
+      if(!/MSIE (6|7|8)/.test(window.navigator.userAgent)){
+        val = window.getComputedStyle(curEle,null)[attr];
+      }else{
+        val = curEle.currentStyle[attr];
+      }
+      return val;
+    }
+    
+    console.log(window.navigator.userAgent)
+    console.log(getCss(box,'width'))
+
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    /**插入排序
+     * 一种简单直观的算法，时间复杂度为O(n);
+     * 基本逻辑：
+     * 从第一个元素开始，该元素可以任务已经被排序
+     * 取出下一个元素，在已经排序的元素序列中从后向前扫描
+     * 如果该元素（已排序）大于新元素，就将元素移到下一个位置
+     * 重复步骤三，直到找到已排序的元素小于或者等于新元素的位置，将新元素插入该位置后，
+     * 重复步骤2~4
+     * 
+    */
+    function insertionSort(arr){
+      console.time()
+      let len = arr.length;
+      var preIndex,current;
+      for (let i = 1; i < len; i++) {
+        preIndex = i - 1; 
+        current = arr[i]; 
+        while (preIndex >= 0 && arr[preIndex] > current) {
+          arr[preIndex+1] = arr[preIndex];
+          preIndex--;
+        }
+        arr[preIndex+1] =current;
+      }
+      console.timeEnd()
+      return arr;
+    }
+    
+    let arr = [11,4,5,74,20,33,9,12,2,28];
+    let newArr = insertionSort(arr);//[1, 2, 4, 5, 7, 9, 12, 33]
+    // 历时 0.02 ~ 0.06ms
+    console.log(newArr)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+</body>
+</html>

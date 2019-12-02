@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>冒充对象继承</title>
+</head>
+<body>
+  <script>
+    function A(){
+      this.x = 100
+    }
+    A.prototype.getX = function(){
+      console.log(this.x)
+    }
+
+    function B(){
+      var temp = new A;
+      for(var key in temp){
+        // temp.hasOwnProperty(key) 私有
+        // temp.propertyIsEnumerable 可枚举
+        this[key] = temp[key];
+      }
+      temp = null;
+    }
+    
+    var n = new B;
+    
+    //冒充对象继承：就是把父类私有 + 公有 的属性和方法，克隆一份一模一样的给子类私有
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

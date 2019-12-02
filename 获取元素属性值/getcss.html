@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div{
+      margin: 0;
+      padding: 0;
+    }
+    #div1{
+      width: 150px;
+      height: 200px;
+      padding: 20px;
+      border: 10px solid black;
+      margin: 50px auto;
+      font-size: 14px;
+    }
+  
+  
+  </style>
+</head>
+<body>
+  <div id="div1">六.寄生组合式继承
+      1.基本思想
+      结合寄生式继承和组合式继承，完美实现不带两份超类属性的继承方式
+      
+      2.具体实现六.寄生组合式继承
+      1.基本思想
+      结合寄生式继承和组合式继承，完美实现不带两份超类属性的继承方式
+      
+      
+  </div>
+  <script>
+    var box = document.getElementById('div1')
+   
+    //     val = curEle.currentStyle[attr];
+    //   }
+    //   return val;
+    // }
+
+    
+    //判断当前浏览器是否存在这个属性
+  
+    function getCss(curEle,attr){
+      var val = null
+      if(!/MSIE (6|7|8)/.test(window.navigator.userAgent)){
+        val = window.getComputedStyle(curEle,null)[attr];
+      }else{
+        if(attr === 'opacity'){
+          val = curEle.currentStyle['filter'];
+          var req = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+          val = req.exec(val) ? req.exec(val)[1] / 100 : 1;
+        }else{
+          val = curEle.currentStyle[attr];
+        }
+        
+      }
+      var reg = /^(-?\d+(\.\d+)?)(px|pt|rem|em)?$/
+      return reg.test(val) ? parseFloat(val) : val;
+    }
+    
+    console.log(window.navigator.userAgent)
+    console.log(getCss(box,'float'))
+
+
+
+  </script>
+</body>
+</html>
