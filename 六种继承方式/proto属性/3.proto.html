@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body> 
+  <script>
+    //构造函数有类和实例的概念
+    // function CreatPreson(name ,age){
+    //   this.name = name;
+    //   this.age = age;
+      
+    // }
+    // CreatPreson.prototype.write = function(){
+    //   console.log(`my name is ${this.name} age is ${this.age}`)
+    // }
+    // var p1 = new CreatPreson('baobao',12)
+    // var p2 = new CreatPreson('qingyun',13)
+    // console.log(p1.write === p2.write)
+
+    //基于构造函数的原型模式 解决的是方法或者属性的公有问题 prototype
+
+    /***
+     * 1每一个函数数据类型 都有一个天生自带属性 prototype，并且这个属性值是一个对象数据类型
+     * 2在prototype 上，浏览器加上了一个属性 constructor(构造器) ，属性值是当前类/函数本身
+     * 3每一个对象数据类型（普通对象 实例 prototype。。。）也带有一个属性 __proto__，属性值是当前实例所属类的原型
+     * 
+     */
+    function Fn(){
+      this.age = 121;
+    }
+    
+    Fn.prototype.getAge= function(){
+      console.log(this.age)
+    }
+
+    var f1 = new Fn;
+    var f2 = new Fn;
+    console.log(Fn.prototype.constructor)
+    //Object是js中对象数据类型中 的基类
+    // f1 instanceof Fn = true 因为f1 通过 __proto__ 逐级向上查找，不管有多少级最终都会查到object
+    //在oObject.prototype 上没有 __proto__属性
+
+    // 类的属性和方法都是当前实例的属性和方法
+    //原型链机制
+    // 在ie浏览器上不允许使用__proto__
+
+    console.log(Fn.prototype)
+    console.log(f1.__proto__)
+    console.log(Object.prototype)
+
+
+
+    // 在原型中 this 有两种方式
+    // 在类中 this.xxx 是当前类的实例
+    // 在某一个方法中的this 看方法调用前面的 .xxx 则this 指向她
+
+      // 1需要先确定this 是谁
+      // 2把this替换成对应的代码
+      // 3按照原型链查找机制一步一步查找结果
+
+
+
+    function Func(){
+      this.x = 100;
+      this.y = 200;
+      this.getX = function(){
+        console.log(this.x)
+      }
+    }
+
+    Func.prototype ={
+      constructor: Func,
+      y : 300,
+      getX: function(){
+        console.log(this.x)
+      },
+      getY: function(){
+        console.log(this.y)
+      },
+    }
+
+    var func = new Func;
+    func.getX();
+    func.__proto__.getX();
+    func.getY();
+    func.__proto__.getY();
+    
+
+    //链式写法
+
+    Array.prototype.myuniq = function(){
+      var arr = [];
+      for(var i =0; i < this.length; i++){
+        var cur = this[i];
+        if(arr.indexOf(cur) == -1){
+          arr.push(cur)
+        }
+      }
+      return arr;
+    }
+    var arr = [1,2,3,1,2,5,4,1]
+    console.log(arr.myuniq())
+
+
+
+    //批量设置全局方法 
+    // 1提取公有属性前缀
+    var pro = Object.prototype;
+    pro.getQ =function(){
+
+    }
+    pro.getW =function(){
+      
+    }
+
+    // 2。重构原型对象方法
+    function Fn1(){
+      this.x = 10;
+    }
+
+    Fn1.prototype = {
+      constructor: Fn1,
+      a:function(){
+
+      },
+      b: function(){
+
+      }
+    }
+
+    //只有浏览器天生开辟的堆内存 才会有 construcconstructortor ，二自定义的没有constructor,访问属性时回到object
+    //为了和原来保持一致，需要手动添加  指向 constructor: Fn1,
+    //用这种方式给内置类添加公有属性
+
+    // 缺点
+    // 这种方法会把原来内置原型方法给替换掉，所以这种方式修改方式会被浏览器屏蔽
+    // 我们可以一个一个修改内置的原型方法
+    // 增加内置的原型方法时，命名要加特殊的前缀，防止修改别人的内置原型方法
+    var ff = new Fn1;
+    console.log(ff.constructor)
+
+
+    // for in 循环可以把私有的变量遍历出来 同时也可以把在原型上扩展的属性和方法页遍历出来,但是一般情况下，需要遍历私有属性，可以用 propertyIsEnumerable 或者 hasOwnperproty
+
+    Object.prototype.aaa = function(){
+
+    }
+    var obj2 = {name: 'qwe', age: 12}
+    for(var key  in  obj2){
+      if(obj2.propertyIsEnumerable(key)){
+        console.log(key)
+      }
+    }
+
+
+    //Object.create
+    //方法创建一个拥有指定原型和若干指定属性的对象
+
+
+  </script>
+</body>
+</html>

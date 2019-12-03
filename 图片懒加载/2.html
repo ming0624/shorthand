@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>多屏多张图片延迟加载</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+    }
+    ul, li {
+      list-style: none;
+    }
+    img{
+      display: block;
+    }
+    .news{
+      padding: 10px;
+    }
+    .news li{
+      height: 60px;
+      padding: 10px 20px;
+      border-bottom: 1px solid gray;
+      display: flex;
+      /* justify-content: center; */
+      align-items: center;
+    }
+
+    .news li .avatar{
+      width: 75px;
+      height: 60px;
+      background: url('../../img/timg.gif') no-repeat center center;
+      background-size: 100%, 100%;
+    }
+    .news li .avatar img{
+      display: none;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+    .news li .content{
+      padding-left: 10px;
+    }
+    .news li .content h2,.news li .content p{
+      font-size: 18px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .news li .content p{
+      font-size: 16px;
+      margin-top: 10px;
+      line-height: 20px;
+      color: #616161;
+    }
+  </style>
+</head>
+<body>
+  <ul class="news" id="news">
+    <li>
+      <div class="avatar">
+          <!-- <img src="../../img/payment_banner2.png" alt=""> -->
+      </div>
+      <div class="content">
+        <h2>习近平对民政工作做出重要指示</h2>
+        <p>置顶 新华网独家拍摄</p>
+      </div>
+    </li>
+  </ul>
+  <script>
+    var list = [
+      {
+        img: '../../img/payment_banner2.png',
+        desc:'新华网独家拍摄',
+        title: '习近平对民政工作做出重要指示',
+      },
+      {
+        img: '../../img/activeparty.png',
+        desc:'新华网独家拍摄',
+        title: '习近平对民政工作做出重要指示',
+      },
+      {
+        img: '../../img/festival.jpg',
+        desc:'新华网独家拍摄',
+        title: '习近平对民政工作做出重要指示',
+      },
+      {
+        img: '../../img/payment_banner0.png',
+        desc:'新华网独家拍摄',
+        title: '习近平对民政工作做出重要指示',
+      }
+    ]
+    var newsList = [];
+    for(var i = 0; i < 130; i++){
+      for(var j = 0; j < list.length; j++){
+        newsList.push(list[j])
+      }
+    }
+    var news = document.getElementById('news')
+    var imgList = news.getElementsByTagName('img')
+    var str = ''
+    !function(){
+      for(var k = 0; k < newsList.length; k++){
+        str += `<li>
+      <div class="avatar">
+          <img src="" data-src="${newsList[k].img}" alt="">
+      </div>
+      <div class="content">
+        <h2>${newsList[k].title}</h2>
+        <p>${newsList[k].desc}</p>
+      </div>
+    </li>`
+      }
+      // console.log(str)
+      news.innerHTML= str
+    }()
+    
+    function lazyImg(curImg){
+      var oImg = new Image;
+      oImg.src = curImg.getAttribute('data-src')
+      oImg.onload =function(){
+        curImg.src = this.src;
+        curImg.style.display = 'block';
+        fadeIn(curImg)
+        oImg= null
+      }
+      curImg.isLoad = true;
+    }
+
+    function fadeIn(curImg){
+      var druction = 500, interval = 10, target = 1;
+      var step = (target / druction) * interval;
+      var curOp = window.getComputedStyle( curImg ,null)['opacity']-0;
+      var timer = window.setInterval(function(){
+        if(curOp >= 1){
+          curImg.style.opacity = 1;
+          window.clearInterval(timer)
+          return;
+        }
+        curOp += step;
+        curImg.style.opacity = curOp;
+      },interval)
+    }
+
+    function handleImg(){
+      for(var i = 0; i < imgList.length; i++){
+        var curImg = imgList[i]
+        console.log(curImg)
+        if(curImg.isLoad){
+          continue;
+        }
+        var curImgPar = curImg.parentNode;
+        var A = curImgPar.clientHeight + curImgPar.offsetTop;
+        var B = (document.documentElement.clientHeight || document.body.clientHeight) + (document.documentElement.scrollTop || document.body.scrollTop);
+        if(A < B){
+          lazyImg(curImg)
+        }
+      }
+    }
+    
+    window.setTimeout(handleImg,500)
+    window.onscroll = handleImg;
+  
+  </script>
+</body>
+</html>

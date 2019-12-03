@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js盒模型</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+    body{
+      border: 1px solid black;
+    }
+    #box{
+      width: 100px;
+      height: 100px;
+      margin: 100px;
+      padding: 30px;
+      line-height: 20px;
+      border: 5px solid black;
+    }
+  
+  </style>
+</head>
+<body>
+  <div id="box">哈卡斯奥斯卡撒的骄傲看到大家Saks的啊开始就大家开始埃克设计动啥</div>
+  <script>
+    //js盒模型 通过js属性和方法来获取页面中元素的样式的属性
+    var oDiv = document.getElementById('box');
+    console.dir(oDiv)
+    //clientHeight/clientWidth 内容区域的宽高 内容的宽高+padding 和内容溢出没有关系
+    //clientLeft/clientTop 也就是border的宽高
+    //contentEditable 内容是否可以编辑
+
+    //offset 系列
+    /**
+     * offsetHeight / offsetWidth 内容的宽高+padding+border  和内容溢出没有关系
+     * 
+     * offsetParent 
+     *当前元素的父级参照物 
+     * offsetTop / offsetLeft 当前元素的外边框 距离 父级元素的内边框的距离
+     * 
+     */
+    
+
+     //scroll 系列
+     /**
+      * scrollHeight / scrollWidth 和clientWidth / clientHeight 一样 前提是内容没有溢出 在内容溢出的情况下， scrollWidth 等于真实内容的宽度加上左padding ， scrollHeight 等于 真实内容的高度加上 上padding  但是获取到结果都是约等于的值 ，因为同一个浏览器是否设置overflow：hidden 对值是有影响的 2在不同的浏览器获取到的结果也是不一样的
+      * scrollLeft / scrollTop 滚动条卷取的宽度和高度
+      */ 
+
+      // 关于js盒子取值的问题
+      // 通过这13个方法获取的值永远不是小数。小数部分自动四舍五入
+
+      //关于浏览器本身的盒子模型信息
+      //clientHeight/clientWidth 当前浏览器可视区域窗口（一屏幕）的宽度和高度
+      //scrollHeight / scrollWidth 当前页面的真实宽度和高度，也是一个约等于值
+      //我们不管那些属性，也不管那些浏览器，也不管是获取还是设置，想要兼容所有，需要设置两套
+      // document.documentElement[attr] || document.body[attr] 必须document.documentElement[attr] 在前
+
+
+      //封装一个有关浏览器盒子模型的方法
+      //传一个 获取值，传两个。设置值
+      function win(attr,value){
+        if(typeof value === 'undefined'){
+          return document.documentElement[attr] || document.body[attr]
+        }
+
+        //设置
+        document.documentElement[attr] = value;
+        document.body[attr] = value;
+      }
+
+      //获取元素具体某一样式属性值
+      //1元素.style.属性名
+      //这种方式的弊端 ，需要把样式都写到行内样式上这种不常用
+      //2 使用 window.getComputedStyle() 可以获取所有经过浏览器计算过的属性，哪怕样式没写也可以获取到
+      //window.getComputedStyle(box,null) box当前要操作的元素 null 当前元素的伪类，一般不用 但是在ie 678不兼容
+      //CSSStyleDeclaration 包含当前元素的所有样式
+      // 在ie 6~8  下使用currentStyle来获取样式属性
+      // console.log(window.getComputedStyle(box,null)) 
+      
+      //getCss() 获取所有浏览器经过计算后的样式属性值 兼容ie
+      /**
+       * curEle 当前要操作的元素对象
+       * attr 要获取的样式属性名称
+       */ 
+      function getCss(curEle, attr){
+        var val = null;
+        // try{
+        //  val =  window.getComputedStyle(curEle, null)[attr]
+        // }catch(e){
+        //   val = curEle.currentStyle[attr]
+        // }
+        if("getComputedStyle" in window){
+          val =  window.getComputedStyle(curEle, null)[attr]
+        }else{
+          val = curEle.currentStyle[attr]
+        }
+        // 检测浏览器版本
+        // window.navigator.userAgent
+        return val;
+      }
+
+
+
+
+  </script>
+</body>
+</html>

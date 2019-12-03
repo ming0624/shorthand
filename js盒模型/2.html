@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #outer{
+      width: 180px;
+      height: 180px;
+      margin: 50px auto;
+      padding: 50px;
+      border: 10px solid #000;
+      background: orange;
+      /* position: relative; */
+    }
+    #inner{
+      width: 80px;
+      height: 80px;
+      padding: 50px;
+      border: 10px solid #000;
+      background: green;
+      position: relative;
+    }
+    #center{
+      width: 50px;
+      height: 50px;
+      background: red;
+    }
+  
+  </style>
+</head>
+<body>
+  <div id="outer">
+    <div id="inner">
+      <div id="center"></div>
+    </div>
+  </div>
+  <script>
+    var outer = document.getElementById('outer'),inner = document.getElementById('inner'),center = document.getElementById('center');
+    
+    //parentNode 父级节点
+    // center.parentNode //inner
+    // inner.parentNode //outer
+    // outer.parentNode //body
+
+    //null 表示属性在，没有值
+    //underfined 表示属性都没有
+
+    //offsetPanrent 父级参照物 在同一个平面中 在最外层的元素，是里面的所有的参照物，一般来说，所有元素的父级参照物都是body
+    
+
+    //改变父级参照物，需要定位relative,absolute，fixed浮动
+    
+    console.log(outer.offsetParent)
+    console.log(inner.offsetParent)
+    console.log(center.offsetParent)
+
+
+
+    //scrollTOp/scrollLeft 是可读写的
+  
+  </script>
+</body>
+</html>

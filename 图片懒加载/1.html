@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片懒加载</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+    #banner{
+      width: 750px;
+      height: 376px;
+      margin: 1000px auto;
+      background: url('../../img/timg.gif') center center no-repeat;
+      border: 1px solid green;
+    }
+    #banner img{
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="banner">
+    <img id="img" src="" data-img="../../img/payment_banner2.png" alt="">
+  </div>
+  <script>
+    //保证页面打开的速度
+    //原理
+
+    //对于首屏的图片，先设置一张默认图占位，当首屏内容加载完成时，加载图片
+    //对于其他平的图片：也是献给一张默认图片，当滚动条滚动到对应区域的时候，我们开始加载真实的图片
+    // 扩展：数据异步加载
+    // window.setTimeout(function(){
+    //   var imgs = document.getElementById('img')
+    //   var dataimg = imgs.getAttribute('data-img')
+    //   var oImg = new Image;
+    //   oImg.src = dataimg;
+    //   oImg.onload = function(){
+    //     imgs.src = this.src;
+    //     imgs.style.display = 'block'
+    //   }
+    // },1000)
+
+    // 多屏图片加载
+    window.onscroll = function(){
+      var banner = document.getElementById('banner')
+      var imgs = document.getElementById('img')
+      if(banner.isLoad){
+        return;
+      }
+      var A = banner.clientHeight + banner.offsetTop;
+      var B = (document.documentElement.clientHeight || document.body.clientHeight) + (document.documentElement.scrollTop || document.body.scrollTop);
+      if(A < B){
+        var dataimg = imgs.getAttribute('data-img')
+        console.log('ok')
+        var oImg = new Image;
+        oImg.src = dataimg;
+        oImg.onload = function(){
+          imgs.src = this.src;
+          imgs.style.display = 'block'
+        }
+        banner.isLoad = true;
+      }
+    }
+    
+  </script>
+</body>
+</html>

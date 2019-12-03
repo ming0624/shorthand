@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>跑马灯</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+    #box{
+      margin: 50px auto;
+      width: 1000px;
+      padding: 0 10px;
+      height: 35px;
+      line-height: 35px;
+      border: 1px dashed green;
+      border-radius: 5px;
+      background: lightgreen;
+      white-space: nowrap;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    #box div{
+      display: inline-block;
+      height: 35px;
+    }
+    #box div span{
+      color: yellow;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <div id="crossagain">
+      <span>通知：</span>
+      我如果爱你——
+      绝不像攀援的凌霄花，
+      借你的高枝炫耀自己；
+      我如果爱你——
+      绝不学痴情的鸟儿，
+      为绿荫重复单调的歌曲；
+      也不止像泉源，
+      常年送来清凉的慰藉；
+      也不止像险峰，
+      增加你的高度，
+      衬托你的威仪。
+      甚至日光，
+      甚至春雨。
+    </div>
+    <div id="crossend">
+        <span>通知：</span>
+        我如果爱你——
+        绝不像攀援的凌霄花，
+        借你的高枝炫耀自己；
+        我如果爱你——
+        绝不学痴情的鸟儿，
+        为绿荫重复单调的歌曲；
+        也不止像泉源，
+        常年送来清凉的慰藉；
+        也不止像险峰，
+        增加你的高度，
+        衬托你的威仪。
+        甚至日光，
+        甚至春雨。
+      </div>
+    <script>
+      !function(){
+        var box = document.getElementById('box')
+        var cross = document.getElementById('crossagain')
+        var cross_width = window.getComputedStyle(cross,null).width;
+        function move(){
+          box.scrollLeft++;
+          var newLeft = cross.scrollLeft;
+          if(newLeft >= cross_width){
+            box.scrollLeft = 0;
+          }
+        }
+        var timer = window.setInterval(move,10)
+        box.onmouseleave = function(){
+          timer = window.setInterval(move,10)
+          
+        }
+        box.onmouseenter = function(){
+          window.clearInterval(timer)
+        }
+      }()
+     
+    
+    </script>
+  </div>
+</body>
+</html>

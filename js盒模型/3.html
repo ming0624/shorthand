@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #box{
+      margin: 50px auto;
+      padding: 20px;
+      width: 200px;
+      height: 200px;
+      border: 2px solid #000;
+      overflow-y: auto;
+    }
+    html,body{
+      width: 100%;
+      height: 500%;
+      background: linear-gradient(red,green,blue)
+    }
+    a:hover,a:link,a:target,a:visited{
+      text-decoration: none;
+    }
+    #goTop{
+      display: none;
+      width: 50px;
+      height: 50px;
+      background: #fff;
+      color: #000;
+      line-height: 50px;
+      text-align: center;
+      font-size: 16px;
+      opacity: 0.7;
+      position: fixed;
+      bottom: 200px;
+      right: 50px;
+
+    }
+    #goTop:hover{
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <a href="javascript:void(0);" id="goTop">GO</a>
+  <!-- <div id="box">
+    我如果爱你——
+绝不像攀援的凌霄花，
+借你的高枝炫耀自己；
+我如果爱你——
+绝不学痴情的鸟儿，
+为绿荫重复单调的歌曲；
+也不止像泉源，
+常年送来清凉的慰藉；
+也不止像险峰，
+增加你的高度，
+衬托你的威仪。
+甚至日光，
+甚至春雨。
+不，
+这些都还不够！
+我必须是你近旁的一株木棉，
+作为树的形象和你站在一起。
+根，
+紧握在地下；
+叶，
+相触在云里。
+每一阵风过，
+我们都互相致意，
+但没有人，
+听懂我们的言语。
+你有你的铜枝铁干，
+像刀，
+像剑， -->
+<!-- 也像戟；
+我有我红硕的花朵，
+像沉重的叹息，
+又像英勇的火炬。
+我们分担寒潮、
+风雷、
+霹雳；
+我们共享雾霭、
+流岚、
+虹霓。
+仿佛永远分离，
+却又终身相依。
+这才是伟大的爱情，
+坚贞就在这里：
+爱——
+不仅爱你伟岸的身躯，
+也爱你坚持的位置，
+足下的土地。
+  </div> -->
+  <script>
+    var goTop = document.getElementById('goTop')
+    // box.addEventListener('scroll',function(){
+    //   console.log(this.scrollTop)
+    // })
+    window.onscroll = computedScroll;
+    
+    function computedScroll(){
+      var curtop = document.documentElement.scrollTop || document.body.scrollTop;
+      var curHelght = document.documentElement.clientHeight || document.body.clientHeight;
+      goTop.style.display = curtop > curHelght ?'block' : 'none';
+      
+    }
+    
+    goTop.onclick = function(){
+      this.style.display = 'none';
+      window.onscroll = null;
+      var timer = null, duration = 500, stemp = 0,interval = 10,
+      scrollLength = document.documentElement.scrollTop || document.body.scrollTop ;
+      step = (scrollLength / duration) * interval;
+      function move(){
+        var curscroll = document.documentElement.scrollTop || document.body.scrollTop ;
+        
+        if(curscroll === 0){
+          window.clearInterval(timer)
+          window.onscroll = computedScroll;
+          return;
+        }
+        curscroll -= step;
+        document.documentElement.scrollTop = curscroll;
+        document.body.scrollTo = curscroll;
+      }
+      timer = window.setInterval(move,interval)
+    }
+  
+  
+  </script>
+</body>
+</html>

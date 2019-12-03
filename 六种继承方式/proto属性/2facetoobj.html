@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //对象数据类型 把描述同一事物属性和方法放在同一个内存下，起到分组作用，防止相互之间相同属性和方法的冲突
+    //单例模式 不能实现批量生产
+    var person1 = {
+      name: 'baobao',
+      age: 13,
+    }
+
+    //类的继承 封装 继承 多态
+
+    // 工厂模式（函数封装） 把实现同一个方法的代码放在一个函数中，如果想在生产就不需要写相同的代码,只需要执行当前函数
+    /**
+     * 低耦合高内聚 减少代码的冗余 提高代码的利用
+     * 
+     * 
+     **/
+    // function CreatPreson(name ,age){
+    //   var obj ={};
+    //   obj.name = name;
+    //   obj.age = age;
+    //   obj.write = function(){
+    //     console.log(`my name is ${this.name} age is ${this.age}`)
+    //   }
+    //   return obj;
+    // }
+    function CreatPreson(name ,age){
+      this.name = name;
+      this.age = age;
+      this.write = function(){
+        console.log(`my name is ${this.name} age is ${this.age}`)
+      }
+    }
+    var p1 = new CreatPreson('baobao',12)
+    p1.write()
+
+    //继承 子类继承父类的属性和方法
+    //多态 当前方法的多种形态，包含重载 重写 js中不存在重载 方法名一样后面覆盖前面
+
+    //构造函数模式就是创造一个自定义类，并且创建这个类的实例
+
+    /**
+     * 构造函数和工厂函数的区别
+     * 1 在执行的时候，
+     * 普通函数传入参数调用 ，构造函数需要new,那么就是一个类
+     * js中类是函数类型，也是普通函数
+     * js中所有的实例都是对象类型的
+     * 2构造函数在预解析的时候，浏览器会自动创建一个对象数据类型，这个对象就是当前实例
+     * 4在构造函数中出现的this是当前类的实例
+     * 不同实例之间的属性和方法是不一样的，单独的个体
+     * 
+     */
+
+     //类
+     //在构造函数中如果fn中不需要传递参数，后面的小括号可以省略
+     //
+    //  function Fn(){
+    //    var num = 100;
+    //   this.age = 10;
+    //   this.getX = function(){
+    //     console.log(this.age)
+    //   }
+    //  }
+    //  var x1 = new Fn;
+    //  x1.getX();
+    //  var x2 = x1.getX;
+    //  x2();
+    //  console.log(x1.num)
+     //x1.num  类有普通函数一面，var只是私有作用域的私有变量，和实力没有任何关系
+
+     function Fn(){
+       var num = 100;
+      this.age = 10;
+      this.getX = function(){
+        console.log(this.age)
+      }
+      // return {name: 'baobao'}
+     }
+     var x1 = new Fn;
+     x1.getX();
+     //在构造函数模式中，浏览器会默认返回一个对象实例，如果手动返回一个基本类型，那么实例不会改变，如果返回一个引用类型{name: 'baobao'}，那么就会改变浏览器的默认实例
+    
+     //检测莫一个实例是否属于这个类 instanceof
+     //所哟的实例都是对象类型
+     console.log(x1 instanceof Fn)
+     console.log(x1 instanceof Array)
+     console.log(x1 instanceof Object)
+
+     //对于检测数据类型来说 typeof 有自己的局限性，不能区分object array reg
+
+    //  in 检测一个属性对象是否属于 不管是公有还是私有属性
+    console.log('getX' in x1)
+
+    //hasOwnProperty 用来检测一个属性是否为对象的私有属性
+    console.log(x1.hasOwnProperty('getX'))
+
+
+    
+
+  </script>
+</body>
+</html>
