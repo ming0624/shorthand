@@ -1,0 +1,22 @@
+1   git init 初始git 仓库化系统文件
+2   git config --global user.name 'xxx'配置用户名 	自报家门 git config --global user.email 'xxxx@qq.com'配置邮箱
+3   git add ./文件名  添加指定文件到git门口  或者 git add ./  添加所有文件
+4   git commit -m ''提交添加的文件，并添加信息
+5   git status 查看当前代码/提交状态
+6   git commit --all -m '' 一次性提交所有修改
+7   git log 查看历史提交日志 --oneline 看间接版的	
+8   git reset --hard 【head~0】/【版本号】 回退到指定版本（0是当前版本，以此后退）
+9   git reflog 查看每次提交的所有版本号
+10 git branch 【dev】 创建分支/查看当前分支
+11 git checkout 【dev】 切换到dev分支
+12 git merge dev 把dev合并到当前分支
+13 git branch -d dev 删除当前分支
+14 git push 【仓库地址】master 上传代码到远程仓库master分支
+15 git pull 【仓库地址】master 下拉远程仓库master分支代码（注释：要提前git init 一个初始仓库）
+16 git clone 【仓库地址】克隆远程仓库代码
+17 git remote add origin [仓库地址] 设置仓库地址位常量origin 然后可以直接git push origin master ///git pull 同理
+     当我们在push时，加上-u参数，那么在下一次push时，我们只需要直接git push 就可以了（只要push加上-u 以后，就相当我们把当前分支与远程指定分支关联）
+
+git配置ssh
+ssh-keygen -t rsa -C '邮箱'
+cat ~/.ssh/id_rsa.pub	
